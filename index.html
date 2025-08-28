@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventaris AMER119 RSSA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #formFrame {
+      width: 100%;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-red-700 via-red-600 to-pink-700 min-h-screen text-white flex flex-col">
+
+  <!-- Header -->
+  <header class="p-4 text-center">
+    <img src="images/logo.png" alt="Logo" class="w-24 mx-auto mb-2 rounded-full shadow-lg border-2 border-white">
+    <h1 class="text-2xl font-bold">Inventaris AMER119 RSSA</h1>
+    <p class="text-sm italic opacity-80">Responsive and Safety First</p>
+  </header>
+
+  <!-- Foto -->
+  <section class="px-4 max-w-3xl mx-auto">
+    <img src="images/ambulans.jpeg" alt="Foto Ambulans" class="rounded-2xl shadow-lg w-full object-cover max-h-72">
+  </section>
+
+  <!-- Search -->
+  <div id="searchBox" class="px-6 mt-4 max-w-3xl mx-auto w-full">
+    <input id="searchInput" 
+           type="text" 
+           placeholder="Cari menu inventaris..." 
+           class="w-full p-3 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-yellow-400">
+  </div>
+
+  <!-- Menu -->
+  <main id="menuList" class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 max-w-4xl mx-auto w-full">
+    <button onclick="loadForm('https://forms.gle/Ff13G9Ffi5JD6ErH7')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-yellow-400 text-xl">👜</span> Inventaris Tas Emergensi
+    </button>
+    <button onclick="loadForm('https://forms.gle/sdENiCg3fZrRD8UY9')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-green-400 text-xl">🚑</span> Alkes Armada Premio
+    </button>
+    <button onclick="loadForm('https://forms.gle/QaeBhCvBRSixP9iT8')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-blue-400 text-xl">🚐</span> Alkes Armada Comuter
+    </button>
+    <button onclick="loadForm('https://forms.gle/nZJn4RrbeC4acY619')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-red-400 text-xl">🧴</span> Alkes Armada Infeksius ELF
+    </button>
+    <button onclick="loadForm('https://forms.gle/mRHAWTMiTKqTHQQ57')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-indigo-400 text-xl">👨‍⚕️</span> Inventaris Driver Ambulans Premio
+    </button>
+    <button onclick="loadForm('https://forms.gle/EE1SJBDTFRWrx6N96')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-indigo-400 text-xl">👨‍⚕️</span> Inventaris Driver Ambulans Comuter
+    </button>
+    <button onclick="loadForm('https://forms.gle/b2UQsD4rFQxjEzg26')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-indigo-400 text-xl">👨‍⚕️</span> Inventaris Driver Ambulans Elf
+    </button>
+    <button onclick="loadForm('https://forms.gle/SAtp8TpnuWD2UNwd7')" 
+            class="menu-item bg-white/10 rounded-2xl p-4 flex items-center gap-3 shadow hover:bg-white/20 transition">
+      <span class="text-purple-400 text-xl">🧹</span> Pembersihan dan Dekontaminasi
+    </button>
+  </main>
+
+  <!-- Form Embed Area -->
+  <section id="formSection" class="p-6 hidden max-w-5xl mx-auto w-full">
+    <button onclick="backToMenu()" 
+            class="mb-4 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow">
+      ⬅️ Kembali ke Menu
+    </button>
+    <iframe id="formFrame" src="" frameborder="0" 
+            marginheight="0" marginwidth="0"
+            class="rounded-2xl shadow-lg bg-white w-full">
+    </iframe>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p-4 text-center text-xs opacity-70">
+    © 2025 AMER119 RSSA
+  </footer>
+
+  <!-- Script Search + Form Loader -->
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const menuList = document.getElementById("menuList");
+    const searchBox = document.getElementById("searchBox");
+    const menuItems = document.querySelectorAll(".menu-item");
+    const formSection = document.getElementById("formSection");
+    const formFrame = document.getElementById("formFrame");
+
+    // pencarian menu
+    searchInput.addEventListener("keyup", function() {
+      let filter = searchInput.value.toLowerCase();
+      menuItems.forEach(item => {
+        let text = item.textContent.toLowerCase();
+        item.style.display = text.includes(filter) ? "flex" : "none";
+      });
+    });
+
+    function loadForm(url) {
+      formFrame.src = url;
+      resizeIframe();
+      formSection.classList.remove("hidden");
+      menuList.classList.add("hidden");
+      searchBox.classList.add("hidden");
+      formSection.scrollIntoView({behavior: "smooth"});
+    }
+
+    function backToMenu() {
+      formFrame.src = "";
+      formSection.classList.add("hidden");
+      menuList.classList.remove("hidden");
+      searchBox.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function resizeIframe() {
+      formFrame.style.height = window.innerHeight + "px";
+    }
+    window.addEventListener("resize", resizeIframe);
+  </script>
+
+</body>
+</html>
